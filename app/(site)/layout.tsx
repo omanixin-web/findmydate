@@ -1,10 +1,21 @@
 import Link from "next/link";
+import Image from "next/image";
 
 export default function SiteLayout({ children }: { children: React.ReactNode }) {
   return (
     <>
       <header className="nav">
-        <Link className="brand" href="/"><span className="flame" aria-hidden="true" />FindMyDate</Link>
+        <Link className="brand" href="/">
+          <Image
+            src="/logo.png"
+            alt="findmydate.in logo"
+            width={42}
+            height={42}
+            className="brand-logo-img"
+            priority
+          />
+          <span>findmydate.in</span>
+        </Link>
         <nav>
           <Link href="/how-it-works">How it works</Link>
           <Link href="/faq">FAQ</Link>

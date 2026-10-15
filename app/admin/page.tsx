@@ -30,7 +30,8 @@ export default async function Dashboard() {
         <div className="card"><h3>Submissions, last 7 days</h3><Bars data={days} /></div>
         <div className="card"><h3>Gender</h3><Bars data={count(P.map((p) => String(p.answers.gender)))} /></div>
         <div className="card"><h3>Top cities</h3><Bars data={count(P.map((p) => String(p.answers.city).trim()))} /></div>
-        <div className="card"><h3>What they want</h3><Bars data={count(P.map((p) => String(p.answers.intent)))} /></div>
+        <div className="card"><h3>Looking to connect with</h3><Bars data={count(P.map((p) => String(p.answers.interestedIn || "Not set")))} /></div>
+        <div className="card"><h3>Preferred date type</h3><Bars data={count(P.map((p) => String(p.answers.dateType || "Not set")))} /></div>
         <div className="card"><h3>Match status</h3><Bars data={[["Suggested", st("suggested")], ["Approved", st("approved")], ["Date arranged", st("date_arranged")], ["Declined", st("declined")]]} /></div>
       </div>
     </>

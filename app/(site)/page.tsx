@@ -1,18 +1,27 @@
 import Link from "next/link";
 
 const steps = [
-  { t: "Tell us who you are", p: "Twelve short, thoughtful steps: what you want, how you live, what you love. About eight minutes, and you can pause and come back." },
-  { t: "We find your match", p: "Our matching process filters for the basics you set, then scores real compatibility across values, lifestyle, personality and more." },
-  { t: "We plan the date", p: "When you and your match are a fit, our team contacts you both and arranges a comfortable first meeting. You just show up." },
+  {
+    t: "Tell us who you are",
+    p: "Four structured sections covering your basic details, dating preferences, lifestyle and compatibility insights. Quick and auto-saved as you go.",
+  },
+  {
+    t: "We find your match",
+    p: "Our matchmaking engine pairs you within your city (Mumbai or Pune), cross-referencing your preferred neighbourhoods, vibe, timing, and personality.",
+  },
+  {
+    t: "We plan the date",
+    p: "When we find a mutual match, our team connects with you both to arrange a comfortable first meeting in your city. You just show up and enjoy.",
+  },
 ];
+
 const looks = [
-  ["Intent", "Same relationship goals and timeline"],
-  ["Values", "Children, faith and family"],
-  ["Personality", "Social energy, spontaneity, ambition"],
-  ["Interests", "Shared passions to talk about"],
-  ["Lifestyle", "Food, habits, daily rhythm"],
-  ["Connection", "Love languages and conflict style"],
-  ["Logistics", "City, free time, first-date style"],
+  ["City & Neighbourhood", "Living or hanging out in matching zones in Mumbai & Pune"],
+  ["Dating Preferences", "Age range, preferred date type, spending vibe and days"],
+  ["Lifestyle & Habits", "Smoking, drinking and everyday social tempo"],
+  ["Personality & Vibe", "Introvert vs. extrovert scale and friend-group vibe"],
+  ["Core Qualities", "What you're really looking for in a partner"],
+  ["Openness", "Intercultural and community openness"],
 ];
 
 export default function Home() {
@@ -20,40 +29,66 @@ export default function Home() {
     <main>
       <section className="hero">
         <div>
-          <h1>Skip the swiping. <em>We'll plan the date.</em></h1>
-          <p className="lede">Tell us who you are in a few thoughtful steps. FindMyDate finds someone genuinely compatible, then arranges your first meeting.</p>
+          <h1>
+            Skip the swiping. <em>We'll plan the date.</em>
+          </h1>
+          <p className="lede">
+            Tell us who you are in a few thoughtful steps. FindMyDate finds someone genuinely compatible in Mumbai &amp; Pune, then arranges your first meeting.
+          </p>
           <div className="cta-row">
-            <Link href="/apply" className="btn">Find my match</Link>
-            <Link href="/how-it-works" className="btn ghost">How it works</Link>
+            <Link href="/apply" className="btn">
+              Find my match
+            </Link>
+            <Link href="/how-it-works" className="btn ghost">
+              How it works
+            </Link>
           </div>
         </div>
         <div className="demo" aria-label="Example of a compatibility result">
           <p style={{ fontSize: ".85rem", opacity: 0.7 }}>Example match</p>
-          <p className="score" style={{ fontSize: "4rem", margin: "4px 0" }}>92%</p>
-          <p style={{ marginBottom: 14 }}>Aarthi &amp; Karthik, Chennai</p>
+          <p className="score" style={{ fontSize: "4rem", margin: "4px 0" }}>
+            94%
+          </p>
+          <p style={{ marginBottom: 14 }}>Rhea &amp; Siddharth, Pune</p>
           <ul className="reasons">
-            <li>Both want a serious, long-term relationship</li>
-            <li>Shared interests: Travel, Music, Cooking</li>
-            <li>Closely aligned on children, faith and family</li>
-            <li>Free on Saturday evenings, both love a coffee first date</li>
+            <li>Nearby neighbourhoods: Kothrud &amp; Baner</li>
+            <li>Both enjoy: Coffee date on weekend afternoons</li>
+            <li>Harmonious social energy and introvert/extrovert balance</li>
+            <li>Aligned lifestyle habits and dating preferences</li>
           </ul>
         </div>
       </section>
 
       <section className="section" id="how">
         <h2>Three steps to a first date</h2>
-        <ol className="acts">{steps.map((a) => <li key={a.t}><h3>{a.t}</h3><p>{a.p}</p></li>)}</ol>
+        <ol className="acts">
+          {steps.map((a) => (
+            <li key={a.t}>
+              <h3>{a.t}</h3>
+              <p>{a.p}</p>
+            </li>
+          ))}
+        </ol>
       </section>
 
       <section className="section promise">
         <h2>What we look at</h2>
-        <div className="promise-grid">{looks.map(([t, p]) => <p key={t}><strong>{t}</strong>{p}</p>)}</div>
+        <div className="promise-grid">
+          {looks.map(([t, p]) => (
+            <p key={t}>
+              <strong>{t}</strong>
+              {p}
+            </p>
+          ))}
+        </div>
       </section>
 
       <section className="section join">
         <h2>Ready when you are</h2>
-        <p>It's free to apply. Your details are only seen by our small matchmaking team.</p>
-        <Link href="/apply" className="btn">Start my profile</Link>
+        <p>Apply in minutes. Your details are private and only reviewed by our team.</p>
+        <Link href="/apply" className="btn">
+          Start my profile
+        </Link>
       </section>
     </main>
   );
