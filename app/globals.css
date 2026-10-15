@@ -638,8 +638,16 @@ textarea.input {
 }
 
 .prose h2 {
-  font-size: 1.6rem;
+  font-size: 1.5rem;
   margin: 36px 0 12px;
+  color: var(--rose);
+}
+
+.prose h3 {
+  font-size: 1.15rem;
+  margin: 22px 0 8px;
+  font-weight: 600;
+  color: var(--ink);
 }
 
 .prose p, .prose li {
@@ -647,8 +655,13 @@ textarea.input {
   margin-bottom: 14px;
 }
 
-.prose ul {
-  padding-left: 20px;
+.prose ul, .prose ol {
+  padding-left: 22px;
+  margin-bottom: 14px;
+}
+
+.prose li {
+  margin-bottom: 6px;
 }
 
 /* Admin Dashboard */

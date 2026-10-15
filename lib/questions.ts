@@ -65,12 +65,9 @@ export const DRINK_OPTIONS = ["Yes", "No", "Occasionally"];
 export const INTER_DIVERSITY = ["Yes", "No", "Maybe", "Other"];
 
 export const AGREEMENT_ITEMS: { id: string; label: string }[] = [
-  { id: "agree_blind_date", label: "I understand this is a blind date" },
   { id: "agree_over_18", label: "I'm over 18 and legally allowed to date." },
   { id: "agree_fee", label: "I agree to pay ₹499 (female)/ ₹999 (male) to book the experience when matched. Express date charges extra." },
-  { id: "agree_respect", label: "I'll be respectful and open-minded on the date." },
   { id: "agree_refunds", label: "I understand that refunds are not guaranteed." },
-  { id: "agree_privacy", label: "I confirm that I am 18+ and I have read and agree to the Privacy Policy and consent to the collection and use of my personal information as described." },
 ];
 
 /** Accepts "@name", "name" or a pasted instagram.com link; returns the bare lowercase username. */
