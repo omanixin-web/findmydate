@@ -21,8 +21,25 @@ Applicants fill a 12-step profile. A matching algorithm pairs them. Your team re
 3. Global pairing: greedy by score, then 2-opt swaps until no re-pairing improves the total. Minimum score is 60.
 Running matching only rebuilds "suggested" pairs. Approved or arranged pairs stay locked, and declined pairs are never suggested again.
 
+## Database & Production Setup (Supabase)
+The app is configured to store all participant submissions and matches in **Supabase** for zero-disk serverless persistence on Vercel or any cloud host.
+
+1. **Create your Supabase tables:**
+   - Go to your Supabase Project -> **SQL Editor**.
+   - Copy the contents of [`supabase-schema.sql`](file:///d:/Web%20Development/findmydate/supabase-schema.sql) and click **Run**.
+2. **Add Environment Variables:**
+   - In `.env.local` (local development) and your **Vercel Project Settings -> Environment Variables**:
+     - `NEXT_PUBLIC_SUPABASE_URL`: Your Supabase Project URL (`https://<project-ref>.supabase.co`)
+     - `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Your Supabase public `anon` key
+     - `SUPABASE_SERVICE_ROLE_KEY`: Your Supabase secret `service_role` key (recommended for server routes)
+     - `ADMIN_LOGIN_PATH`: Secret path for admin login (e.g. `/sanchit`)
+     - `ADMIN_USERNAME`: Admin login username
+     - `ADMIN_PASSWORD`: Admin login password
+     - `SESSION_SECRET`: 32-byte secret (`openssl rand -hex 32`)
+
+When Supabase environment variables are provided, the system automatically uses Supabase for storing applications and managing matches without any file writes, ensuring 100% compatibility with Vercel serverless deployments. If running locally without Supabase variables, it automatically falls back to `./data/db.json`.
+
 ## Before you launch
-- Storage is a JSON file at `DATA_DIR/db.json`. It needs a persistent disk (VPS, Render or Railway with a volume). It will NOT persist on Vercel. To use a database, replace `getDB`/`mutate` in `lib/store.ts`.
-- Rate limits are in memory, so they reset on restart and aren't shared across instances. Use Redis or similar if you scale out.
+- Rate limits are in memory, so they reset on restart and aren't shared across instances. Use Redis or Upstash if you scale out.
 - The Privacy and Terms pages are templates. Get them reviewed by a lawyer, and review India's DPDP Act obligations, since you hold sensitive personal data.
 - Add automated email or WhatsApp notifications if you want them (not included).

@@ -8,8 +8,13 @@ const cell = (v: unknown) => {
   return `"${t.replace(/"/g, '""')}"`;
 };
 export async function GET() {
-  const db = await getDB();
-  const head = ["id", "submitted", ...ALL_FIELDS.map((f) => f.id)];
-  const rows = db.participants.map((p) => [p.id, p.createdAt, ...ALL_FIELDS.map((f) => p.answers[f.id])].map(cell).join(","));
-  return new Response([head.join(","), ...rows].join("\n"), { headers: { "Content-Type": "text/csv", "Content-Disposition": 'attachment; filename="findmydate-participants.csv"' } });
+  try {
+    const db = await getDB();
+    const head = ["id", "submitted", ...ALL_FIELDS.map((f) => f.id)];
+    const rows = db.participants.map((p) => [p.id, p.createdAt, ...ALL_FIELDS.map((f) => p.answers[f.id])].map(cell).join(","));
+    return new Response([head.join(","), ...rows].join("\n"), { headers: { "Content-Type": "text/csv", "Content-Disposition": 'attachment; filename="findmydate-participants.csv"' } });
+  } catch (err: any) {
+    console.error("[admin] Export error:", err);
+    return new Response("Failed to export participants: " + (err?.message || "Internal error"), { status: 500 });
+  }
 }

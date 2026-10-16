@@ -29,24 +29,32 @@ export async function POST(req: Request) {
   const phoneKey = String(clean.phone ?? "").replace(/[\s\-()]/g, "");
   const instaKey = String(clean.instagram ?? "").toLowerCase();
 
-  const dup = await mutate((db) => {
-    if (
-      phoneKey &&
-      db.participants.some((p) => {
-        const existingPhone = String(p.answers.phone ?? "").replace(/[\s\-()]/g, "");
-        const existingInsta = String(p.answers.instagram ?? "").toLowerCase();
-        return (phoneKey && existingPhone === phoneKey) || (instaKey && existingInsta === instaKey);
-      })
-    ) {
-      return true;
+  try {
+    const dup = await mutate((db) => {
+      if (
+        phoneKey &&
+        db.participants.some((p) => {
+          const existingPhone = String(p.answers.phone ?? "").replace(/[\s\-()]/g, "");
+          const existingInsta = String(p.answers.instagram ?? "").toLowerCase();
+          return (phoneKey && existingPhone === phoneKey) || (instaKey && existingInsta === instaKey);
+        })
+      ) {
+        return true;
+      }
+      db.participants.push({ id: randomUUID(), createdAt: new Date().toISOString(), answers: clean });
+      return false;
+    });
+
+    if (dup) {
+      return NextResponse.json({ message: "You have already applied! We will be in touch on WhatsApp soon." }, { status: 409 });
     }
-    db.participants.push({ id: randomUUID(), createdAt: new Date().toISOString(), answers: clean });
-    return false;
-  });
 
-  if (dup) {
-    return NextResponse.json({ message: "You have already applied! We will be in touch on WhatsApp soon." }, { status: 409 });
+    return NextResponse.json({ ok: true });
+  } catch (err: any) {
+    console.error("[apply] Submission failed:", err);
+    return NextResponse.json(
+      { message: err?.message || "Failed to submit application. Please try again later." },
+      { status: 500 }
+    );
   }
-
-  return NextResponse.json({ ok: true });
 }

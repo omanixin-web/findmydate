@@ -75,15 +75,20 @@ export async function POST() {
     made.push(a);
   }
 
-  await mutate((db) => {
-    for (const a of made) {
-      db.participants.push({
-        id: randomUUID(),
-        createdAt: new Date(Date.now() - Math.random() * 6 * 864e5).toISOString(),
-        answers: a,
-      });
-    }
-  });
+  try {
+    await mutate((db) => {
+      for (const a of made) {
+        db.participants.push({
+          id: randomUUID(),
+          createdAt: new Date(Date.now() - Math.random() * 6 * 864e5).toISOString(),
+          answers: a,
+        });
+      }
+    });
 
-  return NextResponse.json({ added: made.length });
+    return NextResponse.json({ added: made.length });
+  } catch (err: any) {
+    console.error("[admin] Seed error:", err);
+    return NextResponse.json({ error: err?.message || "Failed to seed demo data" }, { status: 500 });
+  }
 }
