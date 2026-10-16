@@ -13,7 +13,7 @@ Applicants fill a 12-step profile. A matching algorithm pairs them. Your team re
 - Set `ADMIN_USERNAME`, `ADMIN_PASSWORD` and `SESSION_SECRET` (`openssl rand -hex 32`). In production the portal stays locked if these are missing.
 - Sessions are signed, httpOnly, sameSite=strict cookies lasting 8 hours. Login is limited to 5 attempts per 15 minutes per IP.
 - Without a `.env.local`, dev mode uses `/portal-dev`, user `admin`, password `findmydate-dev`. This never applies in production.
-- Dashboard: submissions, last 7 days, gender, cities, intent, match status, average score. Participants: search, full answers, best candidates. Matches: review, approve, decline, schedule, CSV export. The dashboard has a dev-only button to add 30 demo people.
+- Dashboard: submissions, last 7 days, gender, cities, intent, match status, average score. Participants: search, full answers, best candidates. Matches: review, approve, decline, schedule, CSV export.
 
 ## Matching (lib/matching.ts)
 1. Hard filters: gender preferences both ways, age ranges both ways, city (or both happy to travel), children conflicts, every deal-breaker.

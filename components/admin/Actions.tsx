@@ -15,11 +15,6 @@ export function RunMatching() {
   }}>{busy ? "Matching…" : "Run matching"}</button><span style={{ opacity: 0.8 }}>{msg}</span></div>;
 }
 
-export function SeedButton() {
-  const router = useRouter(); const [busy, setBusy] = useState(false);
-  return <button className="btn ghost small" disabled={busy} onClick={async () => { setBusy(true); await fetch("/api/admin/seed", { method: "POST" }); setBusy(false); router.refresh(); }}>{busy ? "Adding…" : "Add 30 demo people (dev only)"}</button>;
-}
-
 export function DeleteParticipant({ id }: { id: string }) {
   const router = useRouter();
   return <button className="btn danger small" onClick={async () => {

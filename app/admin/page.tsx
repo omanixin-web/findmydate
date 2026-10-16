@@ -1,6 +1,6 @@
 import { getDB } from "@/lib/store";
 import Bars from "@/components/Bars";
-import { RunMatching, SeedButton } from "@/components/admin/Actions";
+import { RunMatching } from "@/components/admin/Actions";
 
 const count = (xs: string[]) => Object.entries(xs.reduce<Record<string, number>>((a, x) => ((a[x] = (a[x] || 0) + 1), a), {})).sort((a, b) => b[1] - a[1]) as [string, number][];
 
@@ -25,7 +25,7 @@ export default async function Dashboard() {
         <div className="stat"><b>{P.filter((p) => !matched.has(p.id) && !suggested.has(p.id)).length}</b>Unmatched people</div>
         <div className="stat"><b>{avg}%</b>Average match score</div>
       </div>
-      <div className="row" style={{ marginBottom: 32 }}><RunMatching />{process.env.NODE_ENV !== "production" && <SeedButton />}</div>
+      <div className="row" style={{ marginBottom: 32 }}><RunMatching /></div>
       <div className="cols">
         <div className="card"><h3>Submissions, last 7 days</h3><Bars data={days} /></div>
         <div className="card"><h3>Gender</h3><Bars data={count(P.map((p) => String(p.answers.gender)))} /></div>
