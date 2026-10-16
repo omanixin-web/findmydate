@@ -8,7 +8,7 @@ export default function LoginForm({ slug }: { slug: string }) {
   async function go(e: FormEvent) {
     e.preventDefault(); setBusy(true); setErr("");
     const r = await fetch("/api/admin/login", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ username: u, password: p, slug }) });
-    if (r.ok) { router.push("/admin"); router.refresh(); return; }
+    if (r.ok) { window.location.href = "/admin"; return; }
     setErr((await r.json().catch(() => ({}))).error || "Sign-in failed."); setBusy(false);
   }
   return (
