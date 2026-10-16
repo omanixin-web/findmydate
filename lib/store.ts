@@ -85,19 +85,6 @@ async function readSupabase(): Promise<DB> {
   }));
 
   // Auto-seed Supabase from local db.json if Supabase is completely empty and local file exists
-  if (participants.length === 0 && matches.length === 0 && !process.env.VERCEL) {
-    try {
-      const local = await readFileStore();
-      if (local.participants.length > 0 || local.matches.length > 0) {
-        console.log(`[store] Initializing Supabase with ${local.participants.length} local participants...`);
-        await writeSupabase({ participants: [], matches: [] }, local);
-        return local;
-      }
-    } catch {
-      // Ignore local read errors during initial seed
-    }
-  }
-
   return { participants, matches };
 }
 
